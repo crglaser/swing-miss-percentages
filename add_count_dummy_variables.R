@@ -1,0 +1,15 @@
+add_count_dummy_variables <- function(df){
+  df$count00 <- ifelse(df$strikes == 0 & df$balls == 0,1,0)
+  df$count01 <- ifelse(df$strikes == 1 & df$balls == 0,1,0)
+  df$count02 <- ifelse(df$strikes == 2 & df$balls == 0,1,0)
+  df$count10 <- ifelse(df$strikes == 0 & df$balls == 1,1,0)
+  df$count11 <- ifelse(df$strikes == 1 & df$balls == 1,1,0)
+  df$count12 <- ifelse(df$strikes == 2 & df$balls == 1,1,0)
+  df$count20 <- ifelse(df$strikes == 0 & df$balls == 2,1,0)
+  df$count21 <- ifelse(df$strikes == 1 & df$balls == 2,1,0)
+  df$count22 <- ifelse(df$strikes == 2 & df$balls == 2,1,0)
+  df$count30 <- ifelse(df$strikes == 0 & df$balls == 3,1,0)
+  df$count31 <- ifelse(df$strikes == 1 & df$balls == 3,1,0)
+  df$count32 <- ifelse(df$strikes == 2 & df$balls == 3,1,0)
+  return(df)
+}
