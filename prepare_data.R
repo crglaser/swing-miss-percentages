@@ -1,6 +1,10 @@
 prepare_data <- function(df){
+  #Make sure to load the necessary packages
+  load_packages()
+  
   #Add boolean columns to denote a swing and/or miss on each pitch
   df <- add_swings_and_misses(df)
+  df <- add_in_strike_zone_bools(df)
   
   #Aggregate swings, misses and pitches by batter id and join to each pitch. 
   #Note: This should use previous year data once available.
@@ -27,6 +31,20 @@ prepare_data <- function(df){
   league_swing_percentage <- sum(df$swing) / sum(df$pitch)
   league_miss_per_swing <- sum(df$miss) / sum(df$swing)
   
+  #set regression amounts - change this to take in arguments w/ default values.
+  #separate by batter/pitcher?
+  swing_regression_pitches = 10
+  miss_regression_swings = 10
+  
+  #calculate regressed rates for batters
+  df$batter_swing_percentage_regressed <- calculate_regressed_column(df$batter_swings, df$batter_pitches, league_swing_percentage, swing_regression_pitches)
+  df$batter_miss_per_swing_regressed <- calculate_regressed_column(df$batter_misses, df$batter_swings, league_miss_per_swing, miss_regression_pitches)
+  
+  #calculate regressed rates for pitchers
+  df$pitcher_swing_percentage_regressed <- calculate_regressed_column(df$pitcher_swings, df$pitcher_pitches, league_swing_percentage, swing_regression_pitches)
+  df$pitcher_miss_per_swing_regressed <- calculate_regressed_column(df$pitcher_misses, df$pitcher_swings, league_miss_per_swing, miss_regression_pitches)
+  
+  #calculate odds ratio matchup rates - maybe use regressed here or calculate both?
   df$batter_pitcher_swing_percentage <- odds_ratio(df$batter_swing_percentage, df$pitcher_swing_percentage, league_swing_percentage)
   df$batter_pitcher_miss_per_swing <- odds_ratio(df$batter_miss_per_swing, df$pitcher_miss_per_swing, league_miss_per_swing)
   
