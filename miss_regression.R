@@ -5,8 +5,8 @@ miss_regression <- function(df){
                + count20 + count21 + count22 + count30 + count31 + count32 
                #+ vertical_plus + vertical_minus + horizontal_plus + horizontal_minus
                + spin + pfx_x + pfx_z
-               + batter_miss_per_swing 
-               + pitcher_miss_per_swing
+               + batter_miss_per_swing_regressed 
+               + pitcher_miss_per_swing_regressed
                + in_zone_horizontal + in_zone_vertical + in_zone,
                data = swings, family = "binomial")
   return(logit)

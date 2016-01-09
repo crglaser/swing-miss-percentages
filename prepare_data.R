@@ -38,11 +38,11 @@ prepare_data <- function(df){
   
   #calculate regressed rates for batters
   df$batter_swing_percentage_regressed <- calculate_regressed_column(df$batter_swings, df$batter_pitches, league_swing_percentage, swing_regression_pitches)
-  df$batter_miss_per_swing_regressed <- calculate_regressed_column(df$batter_misses, df$batter_swings, league_miss_per_swing, miss_regression_pitches)
+  df$batter_miss_per_swing_regressed <- calculate_regressed_column(df$batter_misses, df$batter_swings, league_miss_per_swing, miss_regression_swings)
   
   #calculate regressed rates for pitchers
   df$pitcher_swing_percentage_regressed <- calculate_regressed_column(df$pitcher_swings, df$pitcher_pitches, league_swing_percentage, swing_regression_pitches)
-  df$pitcher_miss_per_swing_regressed <- calculate_regressed_column(df$pitcher_misses, df$pitcher_swings, league_miss_per_swing, miss_regression_pitches)
+  df$pitcher_miss_per_swing_regressed <- calculate_regressed_column(df$pitcher_misses, df$pitcher_swings, league_miss_per_swing, miss_regression_swings)
   
   #calculate odds ratio matchup rates - maybe use regressed here or calculate both?
   df$batter_pitcher_swing_percentage <- odds_ratio(df$batter_swing_percentage, df$pitcher_swing_percentage, league_swing_percentage)
