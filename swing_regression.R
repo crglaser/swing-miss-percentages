@@ -5,7 +5,10 @@ swing_regression <- function(df){
                + spin + start_speed + pfx_x + pfx_z
                + batter_swing_percentage_regressed  
                + pitcher_swing_percentage_regressed
-               + in_zone_horizontal + in_zone_vertical + in_zone,
+               + in_zone_horizontal + in_zone_vertical + in_zone
+               + diff_start_speed + diff_spin 
+               + diff_pfx_x + diff_pfx_z
+               + pt_swing_rate + pt_miss_per_swing,
                #+ batter_pitcher_swing_percentage + batter_pitcher_miss_per_swing, 
                data = df, family = "binomial")
   return(logit)
