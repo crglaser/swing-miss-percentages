@@ -4,7 +4,7 @@ prepare_data <- function(df, batter_regression_pitches = 10, batter_regression_s
   
   #Add boolean columns to denote a swing and/or miss on each pitch
   df <- add_swings_and_misses(df)
-  df <- add_in_strike_zone_bools(df)
+  df <- add_strike_zone_bools(df)
   
   #Aggregate swings, misses and pitches by batter id and join to each pitch. 
   #Note: This should use previous year data once available.
@@ -14,6 +14,16 @@ prepare_data <- function(df, batter_regression_pitches = 10, batter_regression_s
   #Calculate swing percentage and miss per swing for the batter based on joined data
   df$batter_swing_percentage <- df$batter_swings / df$batter_pitches
   df$batter_miss_per_swing <- ifelse(df$batter_swings > 0, df$batter_misses / df$batter_swings, 0)
+  
+  #Aggregate batter by pitch type data
+  batter_pitch_type_agg <- aggregate_batter_by_pitch_type(df)
+  df <- join(df, batter_pitch_type_agg, by = c("batter_id", "mlbam_pitch_name"))
+  
+  #Add differences between pitch type means and individual pitches
+  df$diff_spin_bat <- df$spin - df$pt_spin_bat
+  df$diff_start_speed_bat <- df$start_speed - df$pt_start_speed_bat
+  df$diff_pfx_x_bat <- df$pfx_x - df$pt_pfx_x_bat
+  df$diff_pfx_z_bat <- df$pfx_z - df$pt_pfx_z_bat
   
   #Aggregate swings, misses and pitches by pitcher id and join to each pitch. 
   #Note: This should use previous year data once available.

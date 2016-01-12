@@ -8,6 +8,9 @@ miss_regression <- function(df){
                + batter_miss_per_swing_regressed 
                + pitcher_miss_per_swing_regressed
                + in_zone_horizontal + in_zone_vertical + in_zone
+               + diff_start_speed_bat + diff_spin_bat 
+               + diff_pfx_x_bat + diff_pfx_z_bat
+               + pt_swing_rate_bat + pt_miss_per_swing_bat
                + diff_start_speed + diff_spin 
                + diff_pfx_x + diff_pfx_z
                + pt_swing_rate + pt_miss_per_swing,
