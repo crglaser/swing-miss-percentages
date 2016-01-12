@@ -1,4 +1,5 @@
 add_swings_and_misses <- function(df){
+  df$pitch <- rep(1,nrow(df))
   df$swing <- ifelse(df$pdes == "Ball" | df$pdes == "Ball In Dirt" | df$pdes == "Pitchout"
                       | df$pdes == "Hit By Pitch" | df$pdes == "Intent Ball" |
                        df$pdes == "Called Strike", 0, 1)
