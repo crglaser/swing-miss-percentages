@@ -14,6 +14,7 @@ miss_regression <- function(df){
                + diff_start_speed + diff_spin 
                + diff_pfx_x + diff_pfx_z
                + pt_swing_rate + pt_miss_per_swing,
+               + diff_spin_fb + diff_pfx_x_fb + diff_pfx_z_fb + diff_start_speed_fb,
                data = swings, family = "binomial")
   return(logit)
 }

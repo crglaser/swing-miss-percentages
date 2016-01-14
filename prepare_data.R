@@ -44,6 +44,16 @@ prepare_data <- function(df, batter_regression_pitches = 10, batter_regression_s
   df$diff_pfx_x <- df$pfx_x - df$pt_pfx_x
   df$diff_pfx_z <- df$pfx_z - df$pt_pfx_z
   
+  #Aggregate pitcher by fastball data
+  fastball_agg <- averages_for_fastballs(df)
+  df <- join(df, fastball_agg, by = "pitcher_id")
+  
+  #Add differences between fastball means and individual pitches
+  df$diff_spin_fb <- df$spin - df$fb_spin
+  df$diff_pfx_x_fb <- df$pfx_x - df$fb_pfx_x
+  df$diff_pfx_z_fb <- df$pfx_z - df$fb_pfx_z
+  df$diff_start_speed_fb <- df$start_speed - df$fb_start_speed
+  
   #Oops, this doesn't work - need to compare for the same id.
   #df$is_pitcher <- ifelse(df$pitcher_pitches >= df$batter_pitches, 1, 0)
   
